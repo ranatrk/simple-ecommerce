@@ -1,10 +1,8 @@
 from gettext import Catalog
 import flask
-from flask import request, Response
-import json
+from flask import Response, request
 
 from catalogue import Catalogue
-
 
 app = flask.Flask(__name__)
 
@@ -15,7 +13,7 @@ catalogue = Catalogue()
 def checkout():
     """
     checkout
-    request params: list of watch IDs
+    request params: list of watch IDs e.g: ["001","002","001"]
     """
     watch_ids_json = request.get_json() or []
     try:

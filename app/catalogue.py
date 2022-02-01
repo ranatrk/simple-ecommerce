@@ -1,4 +1,7 @@
 from collections import defaultdict
+import json
+
+DATA_PATH = "./data/catalogue.json"
 
 
 class Catalogue:
@@ -8,28 +11,43 @@ class Catalogue:
     @property
     def data(self):
         if not self._data:
-            self._data = self._load_data()
+            self._load_data()
         return self._data
 
-    def _load_data(self) -> dict:
-        # TODO read data catalogue.json into catalogue
-        loaded_data = {
-            "001": {"name": "Rolex", "price": 100, "discount": (3, 200)},
-            "002": {"name": "Michael Kors", "price": 80, "discount": (2, 120)},
-        }
-        return loaded_data
+    def _load_data(self):
+        """
+        load/reload catalogue data into self._data by loading json in DATA_PATH
+        """
+        loaded_data = json.load(open(DATA_PATH))
+        self._data = loaded_data or {}
 
     def calculate_discount(self, id, count) -> int:
+        """
+        Calculate discount for an item with id given a total number that item
+        :param id: id of item
+        :type id: str
+        :param count: repetitions of given id to calculate discount based on if exists
+        :type count: int
+        :return: discounted price for items
+        :type return: int
+        """
         watch_info = self.data.get(id, {})
         if not watch_info:
             raise KeyError(f"Id {id} does not exist")
 
-        if watch_info["discount"] and count == watch_info["discount"][0]:
+        if watch_info.get("discount", 0) and count == watch_info["discount"][0]:
             return watch_info["discount"][1]
 
         return 0
 
     def calculate_final_price(self, item_ids: list) -> int:
+        """
+        Calculate total final price of items including discounts if available given list of ids
+        :param id: id of item
+        :type id: str
+        :return: total price
+        :type return: int
+        """
         final_price = 0
         watches_count = defaultdict(int)
         for id in item_ids:
