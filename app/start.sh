@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd / & python3 /app/server.py
+cd / & python3 /app/app.py
