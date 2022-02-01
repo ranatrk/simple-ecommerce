@@ -1,0 +1,12 @@
+{
+    "001": 
+    {"name": "Rolex", "price": 100, "discount": [3, 200]}, 
+    "002": 
+    {"name": "Michael Kors", "price": 80, "discount": [2, 120]},
+    "003": 
+    {"name": "Swatch", "price": 50, "discount": []},
+    "004": 
+    {"name": "Casio", "price": 30, "discount": []}
+}
+
+
