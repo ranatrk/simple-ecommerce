@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+    main_app:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        environment:
+            - API_PORT=5000
+        command: bash -c 'bash /app/start.sh && sleep 5 && tail -F /dev/null'
+        ports:
+            - "5000:5000"
+        working_dir: /app
+
+    main_test:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        depends_on:
+            - main_app
+        working_dir: /app
+
+
