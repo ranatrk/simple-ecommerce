@@ -1,7 +1,7 @@
 from collections import defaultdict
 import json
 
-DATA_PATH = "./data/catalogue.json"
+DEFAULT_DATA_PATH = "./data/catalogue.json"
 
 
 class Catalogue:
@@ -14,11 +14,13 @@ class Catalogue:
             self._load_data()
         return self._data
 
-    def _load_data(self):
+    def _load_data(self, path=DEFAULT_DATA_PATH):
         """
-        load/reload catalogue data into self._data by loading json in DATA_PATH
+        load/reload catalogue data into self._data by loading json in path
         """
-        loaded_data = json.load(open(DATA_PATH))
+        if not path:
+            path = DEFAULT_DATA_PATH
+        loaded_data = json.load(open(path))
         self._data = loaded_data or {}
 
     def calculate_discount(self, id, count) -> int:
@@ -34,6 +36,9 @@ class Catalogue:
         watch_info = self.data.get(id, {})
         if not watch_info:
             raise KeyError(f"Id {id} does not exist")
+
+        if count < 0:
+            raise RuntimeError(f"count {count} cannot be negative")
 
         if watch_info.get("discount", 0) and count == watch_info["discount"][0]:
             return watch_info["discount"][1]
@@ -58,6 +63,8 @@ class Catalogue:
                 if discounted_price:
                     watches_count[id] = 0
                     final_price += discounted_price
+            else:
+                raise KeyError(f"Id {id} does not exist")
 
         if watches_count:
             for id in watches_count:
