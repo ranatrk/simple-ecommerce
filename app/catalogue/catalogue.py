@@ -1,7 +1,9 @@
 from collections import defaultdict
 import json
+import os
 
-DEFAULT_DATA_PATH = "./data/catalogue.json"
+current_path = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_DATA_PATH = f"{current_path}/data/catalogue.json"
 
 
 class Catalogue:
