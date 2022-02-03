@@ -1,3 +1,4 @@
 #!/bin/bash
 
-cd / & python3 /app/app.py
+export FLASK_APP=app & flask run 
+# cd / & python3 /app/app.py
