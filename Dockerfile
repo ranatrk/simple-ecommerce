@@ -11,9 +11,12 @@ RUN mkdir /app
 RUN mkdir /app/data
 RUN mkdir /app/tests
 
-COPY /app/* /app/
-COPY /app/data/* /app/data/
-COPY /app/tests/* /app/tests/
+COPY /app /app/
+COPY /app/catalogue /app/catalogue/
+COPY /app/catalogue/data /app/catalogue/data/
+COPY /app/tests /app/tests/
+COPY /app/__init__.py /app/
+COPY /app/tests/__init__.py /app/tests
 
 
 

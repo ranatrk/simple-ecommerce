@@ -11,13 +11,3 @@ services:
         ports:
             - "5000:5000"
         working_dir: /app
-
-    main_test:
-        build:
-            context: .
-            dockerfile: ./Dockerfile
-        depends_on:
-            - main_app
-        working_dir: /app
-
-
