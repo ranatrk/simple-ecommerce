@@ -1,11 +1,7 @@
-from gettext import Catalog
 import pytest
 import json
-from catalogue import Catalogue
 
-import requests
-
-BASE_URL = "http://main_app:5000"
+from .conftest import app_client
 
 
 @pytest.mark.parametrize(
@@ -19,7 +15,7 @@ BASE_URL = "http://main_app:5000"
         (["001", "001", "001", "002", "002"], 320),
     ],
 )
-def test_checkout_valid(item_ids, expected):
+def test_checkout_valid(item_ids, expected, app_client):
     """
     cases: calculate_final_price(item_ids: list)
     - list empty
@@ -29,27 +25,22 @@ def test_checkout_valid(item_ids, expected):
     - list with different valid items (multiple same discounts)
     - list with different valid items (multiple different discounts)
     """
-    checkout_url = f"{BASE_URL}/checkout"
 
-    response = requests.post(checkout_url, json=item_ids)
-    resp = response.json()
+    response = app_client.post("/checkout", json=item_ids, content_type="application/json")
+    resp = response.get_json()
     assert response.status_code == 200
 
-    catalogue = Catalogue()
     assert resp.get("price") == expected
 
 
 @pytest.mark.parametrize("item_ids", [(["123", "001", "001"])])
-def test_calculate_final_price_invalid(item_ids):
+def test_calculate_final_price_invalid(item_ids, app_client):
     """
     cases: calculate_final_price(item_ids: list)
     - list with invalid id in list
     """
-    checkout_url = f"{BASE_URL}/checkout"
-
-    response = requests.post(checkout_url, json=item_ids)
+    response = app_client.post("/checkout", json=item_ids)
     assert response.status_code == 400
 
-    catalogue = Catalogue()
-    assert "'Id 123 does not exist'" == response.text  # FIXME
+    assert "'Id 123 does not exist'" == response.data.decode()  # FIXME
 
