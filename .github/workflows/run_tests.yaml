@@ -20,14 +20,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y git libtool tmux python3-pip
-          sudo pip3 install flask pytest pytest-dependency requests
+          sudo pip3 install flask pytest pytest-dependency requests pytest-cov
       - name: pretest
         working-directory: app/..
         run: pwd
 
       - name: Run tests 
         working-directory: app/..
-        run: pytest -s  --import-mode=append app/tests/
+        run: pytest -s --cov=./ --cov-report=xml app/tests/
 
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v2
