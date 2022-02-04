@@ -1,9 +1,9 @@
 import pytest
 import json
-from app.catalogue.catalogue import Catalogue
+from ecommerce_app.catalogue.catalogue import Catalogue
 
 
-@pytest.mark.parametrize("path", ["", "app/tests/valid_catalogue.json"])
+@pytest.mark.parametrize("path", ["", "ecommerce_app/tests/valid_catalogue.json"])
 def test_load_data_valid(path):
     """
     cases: _load_data()
@@ -18,7 +18,7 @@ def test_load_data_valid(path):
     assert catalogue.data
 
 
-@pytest.mark.parametrize("path,expected", [("app/tests/invalid_catalogue.json", json.JSONDecodeError)])
+@pytest.mark.parametrize("path,expected", [("ecommerce_app/tests/invalid_catalogue.json", json.JSONDecodeError)])
 def test_load_data_invalid(path, expected):
     """
     cases: _load_data()

@@ -22,12 +22,12 @@ jobs:
           sudo apt-get install -y git libtool tmux python3-pip
           sudo pip3 install flask pytest pytest-dependency requests pytest-cov
       - name: pretest
-        working-directory: app/..
+        working-directory: ecommerce_app/..
         run: pwd
 
       - name: Run tests 
-        working-directory: app/..
-        run: pytest -s --cov=./ --cov-report=xml app/tests/
+        working-directory: ecommerce_app/..
+        run: pytest -s --cov=./ --cov-report=xml ecommerce_app/tests/
 
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v2

@@ -7,7 +7,7 @@ services:
             dockerfile: ./Dockerfile
         environment:
             - API_PORT=5000
-        command: bash -c 'bash /app/start.sh && sleep 5 && tail -F /dev/null'
+        command: bash -c 'bash /ecommerce_app/start.sh && sleep 5 && tail -F /dev/null'
         ports:
             - "5000:5000"
-        working_dir: /app
+        working_dir: /ecommerce_app
