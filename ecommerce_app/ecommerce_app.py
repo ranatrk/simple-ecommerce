@@ -1,9 +1,6 @@
 import flask
 from flask import Response, request
-import json
 
-import sys
-import os
 
 from ecommerce_app.catalogue.catalogue import Catalogue
 
@@ -21,7 +18,6 @@ def create_app():
         """
         watch_ids_json = request.get_json() or []
 
-        # watch_ids = json.loads(watch_ids_json)
         try:
             final_price = catalogue.calculate_final_price(watch_ids_json)
             return {"price": final_price}

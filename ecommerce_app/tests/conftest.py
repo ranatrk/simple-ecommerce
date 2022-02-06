@@ -1,7 +1,3 @@
-import sys
-import os
-
-
 from ecommerce_app.ecommerce_app import create_app
 import pytest
 
