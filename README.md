@@ -56,7 +56,13 @@ A simple e-commerce flask application with a single endpoint that performs a che
 
 ### Build image and run container
 
-using docker-compose
+- Building, running, and removal is using docker-compose
+
+- Build and Run : `docker-compose up --build` [should be done at least once initially]
+
+- Run: `docker-compose up`
+
+- Destroy running containers: `docker-compose down`
 
 ## Tests
 
